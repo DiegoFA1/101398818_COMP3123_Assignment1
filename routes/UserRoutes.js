@@ -8,12 +8,14 @@ routes.route("/signup")
     .post(async (req,res)=>{
         const user =  new userModel(req.body);
 
-    try {
-      await user.save();
-      res.send(user);
-    } catch (err) {
-      res.status(500).json(err.message);
-    }
+        try {
+            await user.save();
+        // send created status
+             res.status(201).json(user);
+
+        } catch (err) {
+            res.status(500).json(err.message);
+        }
     })
 
 
@@ -51,7 +53,7 @@ routes.route("/login")
             message: "User logged in successfully"
         };
 
-        res.json(response)
+        res.status(200).json(response)
 
 
     })
