@@ -23,8 +23,10 @@ routes.route("/signup")
 routes.route("/login")
     .post(async (req,res)=>{
         // get user from database
-        const user = await userModel.findOne({ username: req.body.username });
-
+        const user = await userModel.findOne({
+            $or: [{ 'username': req.body.username }, { 'email': req.body.email }]
+          });
+        
         // check if user exist
         if(!user){
             response = {

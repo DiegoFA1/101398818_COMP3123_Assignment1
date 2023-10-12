@@ -18,15 +18,6 @@ app.use('/api/v1/employees', employeeRoutes);
 // http://localhost:8089/api/v1/employees
 
 
-
-
-
-
-
-
-
-
-
 mongoose.connect('mongodb+srv://diego:dvD48hSyLDBEsNxX@cluster0.ma52oy9.mongodb.net/comp3123_assignment1?retryWrites=true&w=majority', {
     useNewUrlParser: true,
   })
