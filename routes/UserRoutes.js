@@ -23,8 +23,10 @@ routes.route("/signup")
 routes.route("/login")
     .post(async (req,res)=>{
         // get user from database
+        const lowercaseUsername = req.body.username.toLowerCase();
+        const lowercaseEmail= req.body.email.toLowerCase();
         const user = await userModel.findOne({
-            $or: [{ 'username': req.body.username }, { 'email': req.body.email }]
+            $or: [{ 'username': lowercaseUsername }, { 'email': lowercaseEmail }]
           });
         
         // check if user exist
