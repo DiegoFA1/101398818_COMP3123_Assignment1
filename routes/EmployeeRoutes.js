@@ -42,7 +42,6 @@ routes.route("/:eid")
       
             res.status(200).json(emp);
           } catch (error) {
-            console.error(error);
             res.status(500).json({ message: "The Id is invalid." });
           }
     })
@@ -59,7 +58,6 @@ routes.route("/:eid")
             await emp.save();
             res.status(200).json(emp);
         } catch (error) {
-            console.error(error);
             res.status(500).json({ message: "The Id is invalid." });
         }
     })
@@ -76,7 +74,6 @@ routes.route("/")
     
             res.status(204).json("Employee Deleted");
         } catch (error) {
-            console.error(error);
             res.status(500).json({ message: "The Id is invalid." });
         }
     })
