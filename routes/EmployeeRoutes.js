@@ -32,34 +32,53 @@ routes.route("/")
 routes.route("/:eid")
     // Get employee
     .get(async (req,res)=>{
-        givenId = req.params.eid
-        const emp = await employeeModel.findOne({ _id: givenId});
-        if(!emp){
-            return res.status(404).json(`There is no Employee with that Id ${givenId}`)
-        }
-        res.status(200).json(emp)
+        try {
+            const givenId = req.params.eid;
+            const emp = await employeeModel.findOne({ _id: givenId });
+      
+            if (!emp) {
+              return res.status(404).json({ message: `There is no Employee with that ID ${givenId}` });
+            }
+      
+            res.status(200).json(emp);
+          } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "The Id is invalid." });
+          }
     })
 
     // Update Employee
     .put(async (req,res)=>{
-        givenId = req.params.eid
-        const emp = await employeeModel.findByIdAndUpdate(givenId, req.body);
-        await emp.save();
-        if(!emp){
-            return res.status(404).json(`There is no Employee with that Id ${givenId}`)
+        try {
+            const givenId = req.params.eid;
+            const emp = await employeeModel.findByIdAndUpdate(givenId, req.body);
+            
+            if (!emp) {
+                return res.status(404).json({ message: `There is no Employee with that ID ${givenId}` });
+            }
+            await emp.save();
+            res.status(200).json(emp);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "The Id is invalid." });
         }
-        res.status(200).json(emp)
     })
 
 // /api/v1/emp/employees?eid=xxx
 routes.route("/")
     // Delete
     .delete(async (req,res)=>{
-        const emp = await employeeModel.findByIdAndDelete(req.query.eid);
-        if(!emp){
-            return res.status(404).json(`There is no Employee with that Id ${givenId}`)
+        try {
+            const emp = await employeeModel.findByIdAndDelete(req.query.eid);
+            if (!emp) {
+                return res.status(404).json({ message: `There is no Employee with that ID ${req.query.eid}` });
+            }
+    
+            res.status(204).json("Employee Deleted");
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "The Id is invalid." });
         }
-        res.status(204).json("Employee Deleted")
     })
 
 
