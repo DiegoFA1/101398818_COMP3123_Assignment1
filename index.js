@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 
 
+const SERVER_PORT = 8089
 var app = express()
 app.use(express.json());
 
@@ -33,7 +34,6 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-app.listen(process.env.PORT, () => {
-  var port = server.address().port;
-  console.log("Express is working on port " + port);
+app.listen(SERVER_PORT, () => {
+    console.log(`Server running at http://localhost:${SERVER_PORT}/`)
 })
