@@ -34,5 +34,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(process.env.PORT, () => {
-    console.log(``)
+  var port = server.address().port;
+  console.log("Express is working on port " + port);
 })
